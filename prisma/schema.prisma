@@ -8,7 +8,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Products {
+model Product {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   description String
   image       String

@@ -7,7 +7,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className="min-h-screen antialiased">
+        <div className="container mx-auto px-4 py-8">{children}</div>
+      </body>
     </html>
   );
 }
