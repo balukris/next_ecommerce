@@ -1,3 +1,5 @@
-echo "npx lint-staged" > .husky/pre-commit
-chmod +x .husky/pre-commit
+#!/usr/bin/env sh
+set -e
 
+npx lint-staged
+npm run -s typecheck
