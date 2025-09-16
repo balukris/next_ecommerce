@@ -1,8 +1,6 @@
 @import "tailwindcss";
 @plugin "daisyui" {
-  themes:
-    retro --default,
-    black --prefersdark;
+  themes: dark --default;
 }
 
 body {
