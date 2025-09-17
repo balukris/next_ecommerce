@@ -5,16 +5,15 @@ import Link from "next/link";
 type Props = {
   inx?: number;
   product: Product;
-  key: string;
 };
 
-const ProductCard = ({ product, inx = 0, key }: Props) => {
+const ProductCard = ({ product, inx = 0 }: Props) => {
   const isNew = true;
   return (
     <Link href={`/product/${product.id}`}>
       <div
         className="card bg-base-300 flex max-h-[500px] w-96 items-center shadow-sm"
-        key={key}
+        key={`Product-${inx}`}
       >
         <figure>
           <Image
@@ -31,10 +30,6 @@ const ProductCard = ({ product, inx = 0, key }: Props) => {
             {isNew ? <div className="badge badge-info">New</div> : null}
           </div>
           <p>{product?.description}</p>
-
-          <div className="card-actions justify-end">
-            <button className="btn btn-primary">Buy Now</button>
-          </div>
         </div>
       </div>
     </Link>

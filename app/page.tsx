@@ -10,9 +10,9 @@ export default async function Home() {
   });
 
   return (
-    <main>
+    <main className="w-full">
       <MainCard product={products?.[0]} />
-      <div className="grid grid-cols-3">
+      <div className="grid grid-cols-1 place-items-center gap-16 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
         {products.map((item, inx) => {
           return (
             <ProductCard product={item} inx={inx} key={`Product-${inx}`} />
