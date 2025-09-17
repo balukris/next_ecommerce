@@ -6,11 +6,11 @@ import { revalidatePath } from "next/cache";
 export async function addToCart(productId: string) {
   const cart = (await getCart()) ?? (await addCart());
 
-  const dataInCart = cart.items.find((item) => item.productId === productId);
+  const productInCart = cart.items.find((item) => item.productId === productId);
 
-  if (dataInCart) {
+  if (productInCart) {
     await prisma.cartItem.update({
-      where: { id: dataInCart.id },
+      where: { id: productInCart.id },
       data: { quantity: { increment: 1 } },
     });
   }
