@@ -13,6 +13,7 @@ export async function addToCart(productId: string) {
       where: { id: productInCart.id },
       data: { quantity: { increment: 1 } },
     });
+    return;
   }
   await prisma.cartItem.create({
     data: {
