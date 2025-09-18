@@ -39,7 +39,7 @@ export async function getCart(): Promise<ShoppingCart | null> {
 
 export async function addCart(): Promise<ShoppingCart> {
   const newCart = await prisma.cart.create({ data: {} });
-  // Not ideal decrypt and set security settings for cookie
+  // Not ideal use decrypt and set security settings for cookie
   // Setting id in cookie for not logged in users
   (await cookies()).set("localcartId", newCart.id);
   return {
