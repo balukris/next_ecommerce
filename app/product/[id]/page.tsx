@@ -1,7 +1,7 @@
-import { prisma } from "@/lib/db/prisma";
 import Image from "next/image";
 import { cache } from "react";
-import AddtoCartButton from "@/components/product/AddtoCartButton";
+// import AddtoCartButton from "@/components/product/AddtoCartButton";
+import { type ProductType } from "@/types/product";
 
 type Props = {
   params: {
@@ -10,18 +10,24 @@ type Props = {
 };
 
 const getProduct = cache(async (id: string) => {
-  const product = await prisma.product.findUnique({
-    where: {
-      id,
-    },
+  const res = await fetch(`https://fakestoreapi.com/products/${id}`, {
+    // cache: 'no-store' // uncomment to force fresh fetch each request
+    next: { revalidate: 60 }, // optional ISR: revalidate every 60s
   });
+
+  if (!res.ok) {
+    throw new Error(`Failed to fetch products: ${res.status}`);
+  }
+
+  const product: ProductType = await res.json();
+
   return product;
 });
 
 export async function generateMetadata({ params: { id } }: Props) {
   const product = await getProduct(id);
   return {
-    title: product?.name,
+    title: product?.title,
     description: product?.description,
   };
 }
@@ -32,7 +38,7 @@ const Product = async ({ params: { id } }: Props) => {
   return (
     <main>
       <div className="my-2">
-        <h1 className="text-4xl">{product?.name}</h1>
+        <h1 className="text-4xl">{product?.title}</h1>
       </div>
       <div className="relative my-2 w-full">
         {product?.image && (
@@ -49,7 +55,7 @@ const Product = async ({ params: { id } }: Props) => {
         <div className="card-body">
           <p>{product?.description}</p>
           <div className="card-actions justify-end">
-            {product?.id && <AddtoCartButton productId={product.id} />}
+            {/* {product?.id && <AddtoCartButton productId={product.id} />} */}
           </div>
         </div>
       </div>

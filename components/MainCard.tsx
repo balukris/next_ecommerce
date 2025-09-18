@@ -1,8 +1,8 @@
 import Image from "next/image";
-import { Product } from "@/app/generated/prisma";
+import { type ProductType } from "@/types/product";
 
 type Props = {
-  product: Product;
+  product: ProductType;
 };
 
 const MainCard = ({ product }: Props) => {
@@ -18,7 +18,7 @@ const MainCard = ({ product }: Props) => {
         />
       </figure>
       <div className="card-body">
-        <h2 className="card-title">{product?.name}</h2>
+        <h2 className="card-title">{product?.title}</h2>
         <p>{product?.description}</p>
         <div className="card-actions justify-end"></div>
       </div>

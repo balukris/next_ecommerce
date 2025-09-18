@@ -1,10 +1,12 @@
-import { Product } from "@/app/generated/prisma";
 import Image from "next/image";
 import Link from "next/link";
 
+// Types
+import { type ProductType } from "@/types/product";
+
 type Props = {
   inx?: number;
-  product: Product;
+  product: ProductType;
 };
 
 const ProductCard = ({ product, inx = 0 }: Props) => {
@@ -26,7 +28,7 @@ const ProductCard = ({ product, inx = 0 }: Props) => {
         </figure>
         <div className="card-body">
           <div className="flex justify-between">
-            <h2 className="card-title">{product?.name}</h2>
+            <h2 className="card-title">{product?.title}</h2>
             {isNew ? <div className="badge badge-info">New</div> : null}
           </div>
           <p>{product?.description}</p>
