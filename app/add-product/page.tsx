@@ -1,4 +1,3 @@
-import { prisma } from "@/lib/db/prisma";
 import { redirect } from "next/navigation";
 
 export const metadata = {
@@ -17,16 +16,40 @@ async function addProduct(formData: FormData) {
     throw Error("Missing req values");
   }
 
-  await prisma.product.create({
-    data: {
-      name,
-      description,
-      image: imageUrl,
-      price,
-    },
-  });
+  const payload = {
+    id: 0,
+    title: name,
+    price,
+    description,
+    image: imageUrl,
+    category: "uncategorized",
+  };
 
-  redirect("/");
+  try {
+    const res = await fetch("https://fakestoreapi.com/products", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      body: JSON.stringify(payload),
+    });
+
+    if (!res.ok) {
+      const text = await res.text().catch(() => "");
+      throw new Error(
+        `Failed creating product on Fake Store API: ${res.status} ${res.statusText} ${text}`,
+      );
+    }
+
+    const created = await res.json();
+
+    console.log({ created });
+
+    redirect("/");
+  } catch (err) {
+    throw err;
+  }
 }
 
 export default function AddProduct() {
