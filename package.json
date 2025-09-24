@@ -13,6 +13,7 @@
   "dependencies": {
     "@auth/prisma-adapter": "^2.10.0",
     "@prisma/client": "^6.16.1",
+    "@tanstack/react-query": "^5.90.2",
     "daisyui": "^5.1.10",
     "eslint-config-prettier": "^10.1.8",
     "next": "15.5.3",
